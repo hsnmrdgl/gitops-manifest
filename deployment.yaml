@@ -3,36 +3,36 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    app: flaskdemo
-  name: flaskdemo
+    app: appdemo
+  name: appdemo
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: flaskdemo
+      app: appdemo
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: flaskdemo
+        app: appdemo
     spec:
       containers:
-      - image: hsnmrdgl/demo-registry:8
-        name: flaskdemo
+      - image: nginx:latest
+        name: appdemo
         resources: {}
 status: {}
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: flask-svc
+  name: test-svc
   labels:
-    app: flask-svc
+    app: test-svc
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
   - port: 80
     targetPort: 5000
   selector:
-    app: flaskdemo
+    app: appdemo
